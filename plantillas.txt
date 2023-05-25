@@ -1,0 +1,112 @@
+Modelo de arquitectura
+
+MVT: El usuario hace la petición al servidor meduiante una url, posterior se hace llamado a la función de la vista, 
+y la vista puede conectarse al modelo o a un template
+
+# para retornar el template desde el archivo views.py
+  # metodo render: recibe objetos (parametro 1: request, parametro 2: pagina que se va a incluir)
+    el archivo bienvenido.html se buscara por defecto dentro de una carpeta templates, para ello se crea una carpeta 
+    templates dentro de la carpeta de la aplicación webapp que contiene las vistas
+    
+def bienvenido (request):
+    return render (request, 'bienvenido.html')
+
+# para agrrgar información dinamica a la plantilla, tomamos información desde la vista ya sea del modelo para enviar 
+
+def bienvenido (request):
+    # mensajes para mostar templates como contenido dínamico en la vista, se crea un diccionario
+    mensajes = {'msg1':'valor mensaje 1'}
+    #pasamos variable del diccionario en return
+    return render (request, 'bienvenido.html', mensajes)    
+    ----
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bienvenido</title>
+    </head>
+    <body>
+        <h1>sistema de admin poersonas </h1>
+        <div>
+            {{msg1}}
+        </div>
+    </body>
+    </html>
+
+#   para integrar modelo a la vista con plantilla
+
+def bienvenido (request):
+    no_personas_var = Persona.objects.count()
+    return render (request, 'bienvenido.html', {'no_personas':no_personas_var})
+ ---------------   ------------
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido</title>
+</head>
+<body>
+    <h1>sistema de admin poersonas </h1>
+    <div>
+        nuemro de personas: {{no_personas}}
+    </div>
+</body>
+</html>
+
+# listar objetos de modelo con django
+def bienvenido (request):
+
+    # utilizar la case de modelo de personas, concepto de manejador object, para este caso función que cuenta registros
+    no_personas_var = Persona.objects.count()
+    #recuperar listado de todas las personas DEL TIPO MODELO
+    personas_var = Persona.objects.all()
+    return render (request, 'bienvenido.html', {'no_personas':no_personas_var, 'personas': personas_var})
+
+
+-----------
+html de template, for 
+    <div>
+        <ul>
+            {% for persona in personas %}
+            <li> Persona {{persona.id}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    # Ver detalle de un objeto anidado
+
+     A nivel de template detalle.html ; se crea un repositorio templates a nivel del app personas
+
+             <ul>
+            {% for persona in personas %}
+            <li> Persona {{persona.id}}: 
+                {{persona.nombre}} 
+                {{persona.apellido}} 
+                {{persona.email}}
+                <a href="detalle_persona/{{persona.id}}"> Ver detalle </a>
+            
+            </li>
+            {% endfor %}
+        </ul>
+
+   ----- a nivel de view.py se crea una función detalle personas  s a nivel del app personas------
+
+        from personas.models import Persona
+        from django.shortcuts import render
+
+        # Create your views here.
+        def detallePersona(request, id):
+            persona_var = Persona.objects.get(pk=id)
+            #para retornar 404 cuando el id persona no exista
+            persona_var = get_object_or_404(Persona, pk=id)
+            return render(request, 'personas/detalle.html', {'persona': persona_var})
+
+    ------ a nivel de url.py   -------------     
+        #path con parametro entero de id de persona como identificador para ver la ruta del detalle persona, el úl
+        #timo parametro es la función'''
+        path('detalle_persona/<int:id>', detallePersona)            

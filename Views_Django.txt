@@ -1,0 +1,24 @@
+
+creación de apps
+
+las apps se utilizan para gestionar aplicaicones modulares internas
+ pa
+Ejemplo app para gestionar las paginas generales de la aplicación, index, bienvenida, contacto, etc
+
+comando:
+
+python manage.py startapp nombredeapp
+
+- luego de crear aplicaión se debe de habilitar en la configuración de sttings
+- luego se define URL en archivos urls.py : path('bienvenido/', bienvenido),
+   la función  bienvenido se toma de la views.py, allí se utiliza el parametto request que proporciona django 
+   para responder información de la petición web que hacemos a nuestro server django
+- luego en viewes.py:
+    se crea la funci+on para devolver el return 
+        def bienvenido (request):
+            return HttpResponse('Hola mundo desde django')
+-luego en url.py, se habilita la url de la view
+    urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('bienvenido/', bienvenido) : para tomar por defecto en el navegador path('', bienvenido)
+    ]            

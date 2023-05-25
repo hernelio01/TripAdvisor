@@ -1,0 +1,48 @@
+# instalación virtualenv
+
+python -m pip install virtualenv
+
+# creación de ambiente virtual en carpeta
+
+python -m virtualenv venv
+
+# activación de entorno virtual dentro de la carpeta venv
+
+Scripts\activateScripts\activate
+#
+
+# instalación virtualenv
+
+python -m pip install virtualenv
+
+# creación de ambiente virtual en carpeta
+
+python -m virtualenv venv
+
+# activación de entorno virtual dentro de la carpeta venv
+
+Scripts\activate.bat
+Scripts\deactive
+
+# instalar django en el entorno virtual activo
+
+pip install Django
+
+# ver información de paquetes django installa
+django-admin help
+
+#crear proyecto django
+django-admin startproject automax
+
+#cambiar el nombre de la carpeta pricipal de proyecto a src
+
+#iniciar servidor desde la carpeta principal del proyecto
+python .\manage.py runserver
+
+# ver comandos de manage py
+python manage.py --help
+
+#Crear app en djangp
+python manage.py startapp nombreapp
+
+# M

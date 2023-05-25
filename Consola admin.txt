@@ -1,0 +1,20 @@
+desde aqui se puede administrar las clases de modelo,
+el ideal es que la use el súperadministrador del app
+
+a nivel de settings y url se encuentra registrada la app por defecto
+
+# para crear un super usuario
+    python magane.py createsuperuser
+
+    root1/root1
+
+    url: http://127.0.0.1:8000/admin
+
+ # registrar modelos de personas para poderlas gestionar desde el panel admin
+   ir al archivo admin.py de la carpeta de al app personas
+   
+    from personas.models import Persona
+    from django.contrib import admin
+
+    # Register your models here.
+    admin.site.register(Persona)   

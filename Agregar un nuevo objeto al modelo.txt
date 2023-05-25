@@ -1,0 +1,23 @@
+# Crear en la vista del app personas una función
+  1- importar  from django.forms import modelform_factory
+  2-  variable co instacia del formulario modelo, SE VAN A MOSTRAR TODOS LOS CAMPOS
+        PersonaForm = modelform_factory(Persona, exclude=[])
+
+        def nuevaPersona(request):
+            #calse de django para crear un nuevo objetio delformulario con respecto al modelo
+            formaPersona = PersonaForm()
+            # retornar el template html
+            return render(request, 'personas/nuevo.html', {'formaPersona': formaPersona})
+
+# crear un archivo html para la plantilla de ingreso, nuevo.html en app de personas
+ <body>
+    <form method="POST">
+        <h1>Agregar persona</h1>
+        <table>
+            {{formaPersona}}
+        </table>
+        <button type="submit"> Envíar</button>
+        {% csrf_token %}
+    </form>
+</body>
+</html>
