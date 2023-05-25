@@ -1,0 +1,7 @@
+Realizar migraciones desde django a la base de datos
+
+- revisar  migraciones pendientes, comando:
+    python mamage.py shomigrations
+
+- realizar sincronización de django con base de datos   
+        python mamage.py migrate

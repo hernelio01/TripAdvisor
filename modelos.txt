@@ -1,0 +1,22 @@
+desde este archivo se estructura y se modela los campos de las entidades
+
+from django.db import models
+
+# Create your models here.
+class Persona(models.Model):  
+  nombre = models.CharField(max_length=255)
+  apellido = models.CharField(max_length=255)
+  email = models.CharField(max_length=255)
+
+  #para crear  modelos dese el código realizado del modelo
+    python manage.py makemigrations
+
+  #para ver código sql de la migración
+    python manage.py sqlmigrate personas 001
+
+  # para  migrar los modelos  a la BD
+   python manage.py migrate
+
+   # para borrar datos migraciones
+      eliminar la base de datos
+      
